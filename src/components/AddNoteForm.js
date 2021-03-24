@@ -19,13 +19,8 @@ const AddNoteForm = () => {
             body
         });
 
-        // setNotes([
-        //   ...notes,
-        //   { title, body }
-        // ]);
         setTitle('');
         setBody('');
-
     }
 
     return (

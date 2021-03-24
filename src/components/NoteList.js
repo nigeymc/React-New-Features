@@ -3,9 +3,9 @@ import Note from './Note';
 import NotesContext from '../context/notes-context';
 
 const NoteList = () => {
-    const { notes } = useContext(NotesContext);
+    const { notesState } = useContext(NotesContext);
 
-    return notes.map((note) => (
+    return notesState.map((note) => (
         <Note key={note.title} note={note} />
     ))
 }

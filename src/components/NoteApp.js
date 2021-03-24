@@ -1,38 +1,26 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import notesReducer from '../reducers/notes';
 import NoteList from './NoteList';
 import AddNoteForm from './AddNoteForm';
 import NotesContext from '../context/notes-context';
 
 const NoteApp = () => {
-
-    // If LS is empty, default to empty array using logical or operator
-    // const [notes, setNotes] = useState([]);
-
-    // useReducer returns an array with 2 things on it - state and dispatch function
-    const [notes, dispatch] = useReducer(notesReducer, []);
+    const [notesState, dispatch] = useReducer(notesReducer, []);
 
     useEffect(() => {
-        // Reads notes data from LS
-        const notes = JSON.parse(localStorage.getItem('notes'));
+        const notesState = JSON.parse(localStorage.getItem('notesState'));
 
-        if (notes) {
-            dispatch({ type: 'POPULATE_NOTES', notes })
-
-            console.log('useEffect runs once when reading localStorage');
-            // once the data exists, run setNotes once
-            // setNotes(notesdata);
+        if (notesState) {
+            dispatch({ type: 'POPULATE_NOTES', notesState })
         }
     }, []);
 
-    // Update LS with notes array when it changes 
     useEffect(() => {
-        localStorage.setItem('notes', JSON.stringify(notes));
-        console.log('This runs when notes changes');
-    }, [notes]);
+        localStorage.setItem('notesState', JSON.stringify(notesState));
+    }, [notesState]);
 
     return (
-        <NotesContext.Provider value={{ notes, dispatch }}>
+        <NotesContext.Provider value={{ notesState, dispatch }}>
             <h1>Notes</h1>
             <NoteList />
             <AddNoteForm />
